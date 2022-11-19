@@ -2,12 +2,17 @@ import Player from '@vimeo/player';
 const throttle = require('lodash.throttle');
 
 const vimeoPlayer = document.querySelector('#vimeo-player');
-const player = new Vimeo.Player(vimeoPlayer);
+const player = new Player(vimeoPlayer);
 
-player.on('play', function () {
-  console.log('played the video!');
-});
+player.on(
+  'timeupdate',
+  throttle(function (seconds) {
+    localStorage.setItem('videoplayer-current-time', seconds);
+  }, 1000)
+);
 
-player.getVideoTitle().then(function (title) {
-  console.log('title:', title);
-});
+player
+  .setCurrentTime(localStorage.getItem('videoplayer-current-time'))
+  .then(function (error) {
+    console.error(error);
+  });
