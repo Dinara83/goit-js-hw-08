@@ -21,6 +21,7 @@ refs.galleryEl.insertAdjacentHTML('beforeend', makeColectionImage);
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
+  overlayOpacity: 0.8,
   scrollZoom: false,
 });
 
